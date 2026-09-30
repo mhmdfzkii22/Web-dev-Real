@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Muhamad Syaifudin Nur Dzakiy | Professional Portfolio & Executive Hub</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#eef2ff',
+              100: '#e0e7ff',
+              500: '#6366f1',
+              600: '#4f46e5',
+              700: '#4338ca',
+              800: '#3730a3',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+  </style>
+</head>
+<body class="bg-slate-100 dark:bg-slate-900 text-slate-800 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors duration-300">
+
+  <!-- TOP HEADER & BAR -->
+  <header class="border-b border-slate-200 dark:border-slate-800 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <img src="https://i.ibb.co.com/Xr6sv9R2/1790750682966.jpg" alt="Logo" class="w-10 h-10 rounded-xl object-cover shadow-lg shadow-brand-500/30">
+        <div>
+          <h1 class="font-bold text-base text-slate-900 dark:text-white tracking-tight leading-none">Selamat Datang</h1>
+          <span class="text-xs text-slate-500 dark:text-slate-400">Full-Stack Dev & Digital Specialist</span>
+        </div>
+      </div>
+
+      <!-- Tab Navigation Menu -->
+      <nav class="hidden lg:flex items-center bg-slate-200/80 dark:bg-slate-800/80 p-1 rounded-xl border border-slate-300 dark:border-slate-700/60 text-xs font-medium">
+        <button onclick="switchTab('overview')" id="nav-overview" class="tab-btn active px-4 py-2 rounded-lg text-white bg-brand-600 transition flex items-center">
+          <i class="fa-solid fa-user-tie mr-2"></i> Profil
+        </button>
+        <button onclick="switchTab('portfolio')" id="nav-portfolio" class="tab-btn px-4 py-2 rounded-lg text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition flex items-center">
+          <i class="fa-solid fa-folder-open mr-2"></i> Portofolio
+        </button>
+        <button onclick="switchTab('services')" id="nav-services" class="tab-btn px-4 py-2 rounded-lg text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition flex items-center">
+          <i class="fa-solid fa-cubes mr-2"></i> Layanan & Estimasi
+        </button>
+        <button onclick="switchTab('payment')" id="nav-payment" class="tab-btn px-4 py-2 rounded-lg text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition flex items-center">
+          <i class="fa-solid fa-credit-card mr-2"></i> Pembayaran & QRIS
+        </button>
+        <button onclick="switchTab('finance')" id="nav-finance" class="tab-btn px-4 py-2 rounded-lg text-amber-600 dark:text-amber-400 hover:text-amber-500 dark:hover:text-amber-300 transition flex items-center">
+          <i class="fa-solid fa-lock mr-2"></i> Private Financial
+        </button>
+      </nav>
+
+      <!-- Action & Contact Button + Mode Toggle -->
+      <div class="flex items-center space-x-3">
+        <!-- Theme Toggle Button -->
+        <button onclick="toggleTheme()" class="bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 text-slate-700 dark:text-amber-400 p-2.5 rounded-xl transition flex items-center justify-center border border-slate-300 dark:border-slate-700" title="Ubah Mode Tampilan">
+          <i id="theme-icon" class="fa-solid fa-sun text-base"></i>
+        </button>
+
+        <button onclick="openConsultationModal()" class="bg-emerald-600 hover:bg-emerald-500 text-white text-xs px-4 py-2.5 rounded-xl font-semibold shadow-md transition flex items-center">
+          <i class="fa-brands fa-whatsapp mr-1.5 text-sm"></i> Konsultasi
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Nav Bar (Bottom Tab UI) -->
+    <div class="lg:hidden flex justify-around border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 py-2 text-xs">
+      <button onclick="switchTab('overview')" class="text-center text-slate-500 dark:text-slate-400 focus:text-brand-600 dark:focus:text-brand-400"><i class="fa-solid fa-user-tie block text-base mb-0.5"></i>Profil</button>
+      <button onclick="switchTab('portfolio')" class="text-center text-slate-500 dark:text-slate-400 focus:text-brand-600 dark:focus:text-brand-400"><i class="fa-solid fa-folder-open block text-base mb-0.5"></i>Proyek</button>
+      <button onclick="switchTab('services')" class="text-center text-slate-500 dark:text-slate-400 focus:text-brand-600 dark:focus:text-brand-400"><i class="fa-solid fa-cubes block text-base mb-0.5"></i>Layanan</button>
+      <button onclick="switchTab('payment')" class="text-center text-slate-500 dark:text-slate-400 focus:text-brand-600 dark:focus:text-brand-400"><i class="fa-solid fa-credit-card block text-base mb-0.5"></i>Bayar</button>
+      <button onclick="switchTab('finance')" class="text-center text-amber-600 dark:text-amber-400"><i class="fa-solid fa-lock block text-base mb-0.5"></i>Privat</button>
+    </div>
+  </header>
+
+  <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+    <!-- ================= TAB 1: OVERVIEW & PROFIL ================= -->
+    <div id="tab-overview" class="tab-content active space-y-8">
+      <!-- Banner Hero -->
+      <div class="relative rounded-3xl overflow-hidden bg-gradient-to-r from-slate-800 via-slate-800 to-indigo-950 p-8 md:p-12 border border-slate-700/60 shadow-2xl">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
+          <div class="lg:col-span-8 space-y-5">
+            <div class="inline-flex items-center space-x-2 px-3 py-1 bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-semibold rounded-full">
+              <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+              <span>Open for Projects & Digital Collaborations</span>
+            </div>
+            <h2 class="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
+              Muhamad Syaifudin Nur Dzakiy
+            </h2>
+            <p class="text-slate-300 text-sm md:text-base leading-relaxed">
+              Pengembang Web & Spesialis Solusi Digital berbasis di Kediri, Jawa Timur. Berfokus pada arsitektur sistem web interaktif, manajemen basis data modern, integrasi API, serta produksi media visual profesional.
+            </p>
+            <div class="flex flex-wrap gap-3 pt-2">
+              <a href="javascript:switchTab('portfolio')" class="bg-brand-600 hover:bg-brand-500 text-white px-5 py-2.5 rounded-xl font-medium text-xs transition flex items-center shadow-lg">
+                Jelajahi Portofolio Proyek <i class="fa-solid fa-arrow-right ml-2"></i>
+              </a>
+              <a href="javascript:switchTab('payment')" class="bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 px-5 py-2.5 rounded-xl font-medium text-xs transition flex items-center">
+                Pusat Pembayaran Resmi <i class="fa-solid fa-qrcode ml-2"></i>
+              </a>
+            </div>
+          </div>
+          <div class="lg:col-span-4 flex justify-center">
+            <div class="w-48 h-48 md:w-56 md:h-56 rounded-2xl bg-slate-800 border-2 border-brand-500/40 p-2 shadow-2xl relative">
+              <div class="w-full h-full rounded-xl overflow-hidden">
+                <img src="https://i.ibb.co.com/QvxNZ2pS/1790750731946.jpg" alt="Foto Profil" class="w-full h-full object-cover">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Metrics Stats -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div class="bg-white dark:bg-slate-800/60 p-5 rounded-2xl border border-slate-200 dark:border-slate-700/50 shadow-sm">
+          <span class="text-slate-500 dark:text-slate-400 text-xs block">Total Proyek Selesai</span>
+          <span class="text-2xl font-bold text-slate-900 dark:text-white mt-1 block">15+ Proyek</span>
+        </div>
+        <div class="bg-white dark:bg-slate-800/60 p-5 rounded-2xl border border-slate-200 dark:border-slate-700/50 shadow-sm">
+          <span class="text-slate-500 dark:text-slate-400 text-xs block">Tingkat Kepuasan Klien</span>
+          <span class="text-2xl font-bold text-emerald-600 dark:text-emerald-400 mt-1 block">99.2%</span>
+        </div>
+        <div class="bg-white dark:bg-slate-800/60 p-5 rounded-2xl border border-slate-200 dark:border-slate-700/50 shadow-sm">
+          <span class="text-slate-500 dark:text-slate-400 text-xs block">Ketepatan Deadline</span>
+          <span class="text-2xl font-bold text-brand-600 dark:text-brand-400 mt-1 block">100% On-Time</span>
+        </div>
+        <div class="bg-white dark:bg-slate-800/60 p-5 rounded-2xl border border-slate-200 dark:border-slate-700/50 shadow-sm">
+          <span class="text-slate-500 dark:text-slate-400 text-xs block">Waktu Respon Konsultasi</span>
+          <span class="text-2xl font-bold text-amber-600 dark:text-amber-400 mt-1 block">&lt; 15 Menit</span>
+        </div>
+      </div>
+
+      <!-- Skills & Tech Stack Matrix -->
+      <div class="bg-white dark:bg-slate-800/60 rounded-3xl p-6 md:p-8 border border-slate-200 dark:border-slate-700/50 shadow-sm">
+        <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-6 flex items-center">
+          <i class="fa-solid fa-layer-group text-brand-600 dark:text-brand-400 mr-2"></i> Keahlian Teknis & Tech Stack
+        </h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div class="space-y-4">
+            <h4 class="text-xs font-semibold uppercase tracking-wider text-brand-600 dark:text-brand-400">Frontend & Interface</h4>
+            <div class="space-y-3">
+              <div>
+                <div class="flex justify-between text-xs mb-1"><span>JavaScript (ES6+) / HTML5</span><span class="text-slate-500 dark:text-slate-400">90%</span></div>
+                <div class="w-full h-2 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden"><div class="h-full bg-brand-500 w-[90%]"></div></div>
+              </div>
+              <div>
+                <div class="flex justify-between text-xs mb-1"><span>Tailwind CSS & UI Frameworks</span><span class="text-slate-500 dark:text-slate-400">95%</span></div>
+                <div class="w-full h-2 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden"><div class="h-full bg-brand-500 w-[95%]"></div></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="space-y-4">
+            <h4 class="text-xs font-semibold uppercase tracking-wider text-brand-600 dark:text-brand-400">Backend & Infrastructure</h4>
+            <div class="space-y-3">
+              <div>
+                <div class="flex justify-between text-xs mb-1"><span>Supabase & Relational DB</span><span class="text-slate-500 dark:text-slate-400">85%</span></div>
+                <div class="w-full h-2 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden"><div class="h-full bg-emerald-500 w-[85%]"></div></div>
+              </div>
+              <div>
+                <div class="flex justify-between text-xs mb-1"><span>REST API & Automation Integrations</span><span class="text-slate-500 dark:text-slate-400">88%</span></div>
+                <div class="w-full h-2 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden"><div class="h-full bg-emerald-500 w-[88%]"></div></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="space-y-4">
+            <h4 class="text-xs font-semibold uppercase tracking-wider text-brand-600 dark:text-brand-400">Media & Productivity Tools</h4>
+            <div class="space-y-3">
+              <div>
+                <div class="flex justify-between text-xs mb-1"><span>CapCut Video Editing & Motion</span><span class="text-slate-500 dark:text-slate-400">92%</span></div>
+                <div class="w-full h-2 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden"><div class="h-full bg-amber-500 w-[92%]"></div></div>
+              </div>
+              <div>
+                <div class="flex justify-between text-xs mb-1"><span>GitHub / Deployment Workflows</span><span class="text-slate-500 dark:text-slate-400">85%</span></div>
+                <div class="w-full h-2 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden"><div class="h-full bg-amber-500 w-[85%]"></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================= TAB 2: PORTOFOLIO PROYEK ================= -->
+    <div id="tab-portfolio" class="tab-content space-y-8">
+      <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+        <div>
+          <h2 class="text-2xl font-bold text-slate-900 dark:text-white">Portofolio & Studi Kasus Proyek</h2>
+          <p class="text-slate-500 dark:text-slate-400 text-xs mt-1">Daftar solusi digital, aplikasi web, dan pengerjaan sistem yang telah selesai dikerjakan.</p>
+        </div>
+        <!-- Category Filter -->
+        <div class="flex space-x-2 bg-slate-200 dark:bg-slate-800 p-1 rounded-xl border border-slate-300 dark:border-slate-700 text-xs">
+          <button onclick="filterPortfolio('all')" class="px-3 py-1.5 rounded-lg bg-brand-600 text-white font-medium">Semua</button>
+          <button onclick="filterPortfolio('web')" class="px-3 py-1.5 rounded-lg text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white">Web Apps</button>
+          <button onclick="filterPortfolio('system')" class="px-3 py-1.5 rounded-lg text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white">System Tools</button>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <!-- Project Card 1 -->
+        <div class="port-card web bg-white dark:bg-slate-800/70 rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700/60 hover:border-brand-500/50 transition flex flex-col justify-between shadow-sm">
+          <div class="h-44 bg-slate-900 p-4 flex items-center justify-center border-b border-slate-200 dark:border-slate-700/50 relative overflow-hidden">
+            <img src="https://i.ibb.co.com/NnrTxTvM/1790756288538.jpg" alt="Sistem Dashboard" class="w-full h-full object-cover rounded-lg">
+            <span class="absolute top-3 right-3 text-[10px] bg-brand-500/20 text-brand-300 px-2.5 py-1 rounded-full border border-brand-500/30">Web App</span>
+          </div>
+
+          <div class="p-6 space-y-3">
+            <h3 class="font-bold text-lg text-slate-900 dark:text-white">Sistem Dashboard Financial & Analytics</h3>
+            <p class="text-slate-600 dark:text-slate-400 text-xs leading-relaxed">Platform dashboard analitik internal untuk pencatatan transaksi secara real-time, visualisasi grafik penerimaan, dan export data.</p>
+            <div class="pt-2 flex flex-wrap gap-1.5">
+              <span class="text-[10px] bg-slate-100 dark:bg-slate-700/50 text-slate-700 dark:text-slate-300 px-2 py-0.5 rounded">JS ES6</span>
+              <span class="text-[10px] bg-slate-100 dark:bg-slate-700/50 text-slate-700 dark:text-slate-300 px-2 py-0.5 rounded">Chart.js</span>
+              <span class="text-[10px] bg-slate-100 dark:bg-slate-700/50 text-slate-700 dark:text-slate-300 px-2 py-0.5 rounded">Tailwind</span>
+            </div>
+          </div>
+          <div class="p-6 pt-0 border-t border-slate-200 dark:border-slate-700/30 mt-4 flex items-center justify-between text-xs">
+            <span class="text-emerald-600 dark:text-emerald-400 font-medium"><i class="fa-solid fa-check-circle mr-1"></i> Completed</span>
+            <button onclick="alert('Detail proyek dapat didiskusikan secara khusus melalui WhatsApp.')" class="text-brand-600 dark:text-brand-400 hover:underline">Detail Studi Kasus &rarr;</button>
+          </div>
+        </div>
+
+        <!-- Project Card 2 -->
+        <div class="port-card system bg-white dark:bg-slate-800/70 rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700/60 hover:border-brand-500/50 transition flex flex-col justify-between shadow-sm">
+          <div class="h-44 bg-slate-900 p-4 flex items-center justify-center border-b border-slate-200 dark:border-slate-700/50 relative overflow-hidden">
+            <img src="https://i.ibb.co.com/GQPwDMy8/1790756599736.jpg" alt="Utility Konversi" class="w-full h-full object-cover rounded-lg">
+            <span class="absolute top-3 right-3 text-[10px] bg-emerald-500/20 text-emerald-300 px-2.5 py-1 rounded-full border border-emerald-500/30">Automation</span>
+          </div>
+
+          <div class="p-6 space-y-3">
+            <h3 class="font-bold text-lg text-slate-900 dark:text-white">Utility Konversi & Pengolah Dokumen</h3>
+            <p class="text-slate-600 dark:text-slate-400 text-xs leading-relaxed">Sistem otomatisasi penanganan file digital, ekstraksi data, dan manajemen penyimpanan awan terintegrasi.</p>
+            <div class="pt-2 flex flex-wrap gap-1.5">
+              <span class="text-[10px] bg-slate-100 dark:bg-slate-700/50 text-slate-700 dark:text-slate-300 px-2 py-0.5 rounded">Supabase API</span>
+              <span class="text-[10px] bg-slate-100 dark:bg-slate-700/50 text-slate-700 dark:text-slate-300 px-2 py-0.5 rounded">GitHub Actions</span>
+            </div>
+          </div>
+          <div class="p-6 pt-0 border-t border-slate-200 dark:border-slate-700/30 mt-4 flex items-center justify-between text-xs">
+            <span class="text-emerald-600 dark:text-emerald-400 font-medium"><i class="fa-solid fa-check-circle mr-1"></i> Active</span>
+            <button onclick="alert('Detail proyek dapat didiskusikan secara khusus melalui WhatsApp.')" class="text-brand-600 dark:text-brand-400 hover:underline">Detail Studi Kasus &rarr;</button>
+          </div>
+        </div>
+
+        <!-- Project Card 3 -->
+        <div class="port-card web bg-white dark:bg-slate-800/70 rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700/60 hover:border-brand-500/50 transition flex flex-col justify-between shadow-sm">
+          <div class="h-44 bg-slate-900 p-4 flex items-center justify-center border-b border-slate-200 dark:border-slate-700/50 relative overflow-hidden">
+            <img src="https://i.ibb.co.com/zHPz5xcZ/1790756852862.jpg" alt="Katalog UMKM" class="w-full h-full object-cover rounded-lg">
+            <span class="absolute top-3 right-3 text-[10px] bg-amber-500/20 text-amber-300 px-2.5 py-1 rounded-full border border-amber-500/30">E-Commerce</span>
+          </div>
+
+          <div class="p-6 space-y-3">
+            <h3 class="font-bold text-lg text-slate-900 dark:text-white">Katalog UMKM & Integrated Payment Hub</h3>
+            <p class="text-slate-600 dark:text-slate-400 text-xs leading-relaxed">Website katalog produk dengan integrasi langsung transaksi QRIS & formulir pesan via WhatsApp.</p>
+            <div class="pt-2 flex flex-wrap gap-1.5">
+              <span class="text-[10px] bg-slate-100 dark:bg-slate-700/50 text-slate-700 dark:text-slate-300 px-2 py-0.5 rounded">QRIS Payment</span>
+              <span class="text-[10px] bg-slate-100 dark:bg-slate-700/50 text-slate-700 dark:text-slate-300 px-2 py-0.5 rounded">WA Checkout</span>
+            </div>
+          </div>
+          <div class="p-6 pt-0 border-t border-slate-200 dark:border-slate-700/30 mt-4 flex items-center justify-between text-xs">
+            <span class="text-emerald-600 dark:text-emerald-400 font-medium"><i class="fa-solid fa-check-circle mr-1"></i> Deployed</span>
+            <button onclick="alert('Detail proyek dapat didiskusikan secara khusus melalui WhatsApp.')" class="text-brand-600 dark:text-brand-400 hover:underline">Detail Studi Kasus &rarr;</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================= TAB 3: LAYANAN & KALKULATOR ESTIMASI ================= -->
+    <div id="tab-services" class="tab-content space-y-12">
+      <!-- Calculator Box -->
+      <div class="bg-gradient-to-r from-brand-900/90 via-slate-800 to-slate-900 rounded-3xl p-8 border border-brand-500/30 shadow-2xl text-white">
+        <div class="max-w-2xl space-y-4">
+          <span class="text-2xl font-bold text-slate-900 dark:text-white">Kalkulator Interaktif Klien</span>
+          <h2 class="text-2xl font-extraboldtext-2xl font-bold text-slate-900 dark:text-white">Simulasi Biaya & Investasi Proyek</h2>
+          <p class="text-slate-500 dark:text-slate-400 text-xs">Pilih spesifikasi kebutuhan Anda di bawah ini untuk mendapatkan estimasi kisaran investasi sebelum memulai sesi diskusi.</p>
+
+          <div class="space-y-4 pt-4">
+            <div>
+              <label class="text-slate-500 dark:text-slate-400 text-xs">Kategori Layanan Utama</label>
+              <select id="calc-type" onchange="calculateEstimate()" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-xs text-white focus:outline-none focus:border-brand-500">
+                <option value="500000">Landing Page Professional & Responsive (Mulai Rp 300.000 - 500.000)</option>
+                <option value="1500000">Aplikasi Web Custom / Dashboard Interaktif (Mulai Rp 500.000 - 1.500.000)</option>
+                <option value="800000">Integrasi API, Database & Payment Hub (Mulai Rp 800.000 - 5000.000)</option>
+              </select>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label class="text-slate-500 dark:text-slate-400 text-xs">Kompleksitas Fitur</label>
+                <select id="calc-scale" onchange="calculateEstimate()" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-xs text-white focus:outline-none focus:border-brand-500">
+                  <option value="1">Standar (Fitur Utama Komplet)</option>
+                  <option value="1.5">Pro (+ Fitur Khusus & Custom Logic)</option>
+                </select>
+              </div>
+              <div>
+                <label class="text-slate-500 dark:text-slate-400 text-xs">Prioritas Waktu Pengerjaan</label>
+                <select id="calc-speed" onchange="calculateEstimate()" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-xs text-white focus:outline-none focus:border-brand-500">
+                  <option value="1">Jadwal Standar (3-7 Hari Kerja)</option>
+                  <option value="1.2">Express Priority (1-2 Hari Kerja, +20%)</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="pt-4 border-t border-slate-700/60 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+              <div>
+                <span class="text-[11px] text-slate-500 dark:text-slate-400 text-xs block">Perkiraan Nilai Investasi:</span>
+                <span id="calc-result" class="text-2xl font-black text-emerald-400">Rp 500.000</span>
+              </div>
+              <button onclick="sendEstimateToWA()" class="w-full sm:w-auto bg-emerald-600 hover:bg-emerald-500 text-white px-6 py-3 rounded-xl font-bold text-xs transition flex items-center justify-center shadow-lg">
+                <i class="fa-brands fa-whatsapp text-base mr-2"></i> Ajukan Penawaran Ini
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Service Pricing Cards -->
+      <div>
+        <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-6">Pilihan Paket Layanan Popular</h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div class="bg-white dark:bg-slate-800/60 p-6 rounded-2xl border border-slate-200 dark:border-slate-700/50 space-y-4 shadow-sm">
+            <span class="text-xs font-semibold text-brand-600 dark:text-brand-400 uppercase">Starter</span>
+            <h4 class="text-2xl font-bold text-slate-900 dark:text-white">Web Personal / Profile</h4>
+            <p class="text-slate-500 dark:text-slate-400 text-xs">Cocok untuk personal branding, portofolio ringkas, dan kontak resmi.</p>
+            <ul class="text-xs space-y-2 text-slate-700 dark:text-slate-300 pt-2 border-t border-slate-200 dark:border-slate-700/40">
+              <li><i class="fa-solid fa-check text-emerald-600 dark:text-emerald-400 mr-2"></i> Desain Responsif Mobile/Desktop</li>
+              <li><i class="fa-solid fa-check text-emerald-600 dark:text-emerald-400 mr-2"></i> Integrasi Tombol WA Direct</li>
+              <li><i class="fa-solid fa-check text-emerald-600 dark:text-emerald-400 mr-2"></i> Garansi Maintenance 1 Bulan</li>
+            </ul>
+          </div>
+
+          <div class="bg-white dark:bg-slate-800/60 p-6 rounded-2xl border border-brand-500/50 space-y-4 relative text-white shadow-md">
+            <span class="absolute top-4 right-4 text-[10px] bg-brand-500 text-black font-bold px-2.5 py-0.5 rounded-full">RECOMMENDED</span>
+            <span class="text-xs font-semibold text-brand-600 dark:text-brand-400 uppercase">Professional</span>
+            <h4 class="text-2xl font-bold text-slate-900 dark:text-white">Full Custom Web App</h4>
+            <p class="text-slate-500 dark:text-slate-400 text-xs">Aplikasi web dinamis, sistem manajemen data, dan Payment Hub QRIS.</p>
+            <ul class="text-xs space-y-2 text-slate-700 dark:text-slate-300 pt-2 border-t border-slate-200 dark:border-slate-700/40">
+              <li><i class="fa-solid fa-check text-emerald-600 dark:text-emerald-400 mr-2"></i> Seluruh Fitur Starter</li>
+              <li><i class="fa-solid fa-check text-emerald-600 dark:text-emerald-400 mr-2"></i> Integrasi Database (Supabase)</li>
+              <li><i class="fa-solid fa-check text-emerald-400 mr-2"></i> Fitur QRIS & Konfirmasi Otomatis</li>
+            </ul>
+          </div>
+
+          <div class="bg-white dark:bg-slate-800/60 p-6 rounded-2xl border border-slate-200 dark:border-slate-700/50 space-y-4 shadow-sm">
+            <span class="text-xs font-semibold text-brand-600 dark:text-brand-400 uppercase">Enterprise</span>
+            <h4 class="text-2xl font-bold text-slate-900 dark:text-white">System & Automation</h4>
+            <p class="text-slate-500 dark:text-slate-400 text-xs">Integrasi API tingkat lanjut, dashboard analitik, dan otomatisasi alur kerja.</p>
+            <ul class="text-xs space-y-2 text-slate-700 dark:text-slate-300 pt-2 border-t border-slate-200 dark:border-slate-700/40">
+              <li><i class="fa-solid fa-check text-emerald-600 dark:text-emerald-400 mr-2"></i> High Performance Architecture</li>
+              <li><i class="fa-solid fa-check text-emerald-600 dark:text-emerald-400 mr-2"></i> Custom Scripting & Security</li>
+              <li><i class="fa-solid fa-check text-emerald-600 dark:text-emerald-400 mr-2"></i> Prioritas Dukungan Teknis</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================= TAB 4: PEMBAYARAN & QRIS ================= -->
+    <div id="tab-payment" class="tab-content space-y-8">
+      <div>
+        <h2 class="text-2xl font-bold text-slate-900 dark:text-white">Pusat Pembayaran Resmi & QRIS</h2>
+        <p class="text-slate-500 dark:text-slate-400 text-xs mt-1">Gunakan salah satu saluran pembayaran resmi di bawah ini untuk pelunasan invoice atau transfer komitmen proyek.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <!-- QRIS Box -->
+        <div class="bg-white dark:bg-slate-800/80 p-6 rounded-2xl border border-slate-200 dark:border-slate-700/60 text-center flex flex-col items-center shadow-sm">
+          <span class="text-[10px] font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 px-3 py-1 rounded-full mb-3">Instant Scan All Payment</span>
+          <h3 class="font-bold text-slate-900 dark:text-white text-base">QRIS Universal Payment</h3>
+          <p class="text-xs text-slate-500 dark:text-slate-400 mt-1 mb-4">Scan menggunakan M-Banking (BCA, Mandiri, BRI) atau E-Wallet (GoPay, DANA, OVO).</p>
+          <div class="w-44 h-44 bg-white p-2 rounded-2xl shadow-inner flex items-center justify-center mb-3 overflow-hidden border border-slate-200">
+            <img src="https://i.ibb.co.com/ccgSF84f/Kode-QRIS-MUHAMAD-SYAIFUDIN-Web-Development.png" alt="QRIS Payment" class="w-full h-full object-contain rounded-xl">
+          </div>
+          <span class="text-xs font-bold text-slate-800 dark:text-slate-200">A.N. Muhamad Syaifudin_Web Development</span>
+        </div>
+
+        <!-- Bank BCA -->
+        <div class="bg-white dark:bg-slate-800/80 p-6 rounded-2xl border border-slate-200 dark:border-slate-700/60 flex flex-col justify-between shadow-sm">
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <span class="font-black text-blue-600 dark:text-blue-400 text-lg tracking-wider">BANK BCA</span>
+              <i class="fa-solid fa-building-columns text-slate-400 dark:text-slate-500"></i>
+            </div>
+            <span class="text-xs text-slate-500 dark:text-slate-400 block">Nomor Rekening:</span>
+            <p id="rek-bca" class="text-xl font-mono font-bold text-slate-900 dark:text-white mt-1">033 422 8327</p>
+            <span class="text-xs text-slate-500 dark:text-slate-400 mt-1 block">Atas Nama: Muhamad Syaifudin Nur Dzakiy</span>
+          </div>
+          <button onclick="copyToClipboard('rek-bca', 'BCA')" class="mt-6 w-full py-2.5 bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 text-slate-800 dark:text-slate-200 text-xs font-semibold rounded-xl transition border border-slate-200 dark:border-transparent">
+            <i class="fa-regular fa-copy mr-1"></i> Salin Nomor Rekening
+          </button>
+        </div>
+
+        <!-- Bank Jago / E-Wallet -->
+        <div class="bg-white dark:bg-slate-800/80 p-6 rounded-2xl border border-slate-200 dark:border-slate-700/60 flex flex-col justify-between shadow-sm">
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <span class="font-black text-amber-600 dark:text-amber-400 text-lg tracking-wider">BANK JAGO</span>
+              <i class="fa-solid fa-wallet text-slate-400 dark:text-slate-500"></i>
+            </div>
+            <span class="text-xs text-slate-500 dark:text-slate-400 block">Nomor Rekening :</span>
+            <p id="rek-jago" class="text-xl font-mono font-bold text-slate-900 dark:text-white mt-1">1091 8927 9774</p>
+            <span class="text-xs text-slate-500 dark:text-slate-400 mt-1 block">Atas Nama: Muhamad Syaifudin Nur Dzakiy</span>
+          </div>
+          <button onclick="copyToClipboard('rek-jago', 'Bank Jago')" class="mt-6 w-full py-2.5 bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 text-slate-800 dark:text-slate-200 text-xs font-semibold rounded-xl transition border border-slate-200 dark:border-transparent">
+            <i class="fa-regular fa-copy mr-1"></i> Salin Nomor Rekening
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================= TAB 5: PRIVATE FINANCIAL HUB (RESTRICTED) ================= -->
+    <div id="tab-finance" class="tab-content space-y-6">
+      <!-- Lock Screen View -->
+      <div id="finance-locked-view" class="bg-white dark:bg-slate-800/60 rounded-3xl p-8 border border-amber-500/30 text-center max-w-md mx-auto space-y-4 shadow-sm">
+        <div class="w-16 h-16 bg-amber-500/10 text-amber-500 dark:text-amber-400 rounded-2xl flex items-center justify-center mx-auto text-2xl">
+          <i class="fa-solid fa-shield-halved"></i>
+        </div>
+        <h3 class="text-xl font-bold text-slate-900 dark:text-white">Area Keuangan Terkunci</h3>
+        <p class="text-slate-500 dark:text-slate-400 text-xs leading-relaxed">Seksi ini bersifat rahasia dan hanya dapat diakses oleh pemilik website. Silakan masukkan PIN keamanan Anda.</p>
+        <button onclick="unlockFinance()" class="w-full bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold py-3 rounded-xl text-xs transition shadow-lg">
+          Buka Kunci Akses Pemilik
+        </button>
+      </div>
+
+      <!-- Unlocked Financial Content -->
+      <div id="finance-unlocked-view" class="hidden space-y-8">
+        <div class="flex items-center justify-between bg-emerald-500/10 border border-emerald-500/30 p-4 rounded-2xl">
+          <div class="flex items-center space-x-3">
+            <i class="fa-solid fa-lock-open text-emerald-500 dark:text-emerald-400 text-lg"></i>
+            <div>
+              <h3 class="font-bold text-sm text-slate-900 dark:text-white">Private Dashboard Unlocked</h3>
+              <p class="text-[11px] text-slate-500 dark:text-slate-400">Data transaksi ini tersimpan aman secara lokal di perangkat Anda.</p>
+            </div>
+          </div>
+          <button onclick="lockFinance()" class="text-xs bg-rose-600 hover:bg-rose-500 text-white px-3 py-1.5 rounded-lg font-medium transition">Kunci Kembali</button>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <!-- Form Input -->
+          <div class="bg-white dark:bg-slate-800/80 p-6 rounded-2xl border border-slate-200 dark:border-slate-700/60 shadow-sm">
+            <h4 class="font-bold text-sm text-slate-900 dark:text-white mb-4"><i class="fa-solid fa-circle-plus text-brand-600 dark:text-brand-400 mr-1.5"></i> Tambah Transaksi Keuangan</h4>
+            <form onsubmit="addTransaction(event)" class="space-y-4">
+              <div>
+                <label class="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1">Deskripsi / Keterangan</label>
+                <input type="text" id="tx-desc" required placeholder="DP Proyek Website UMKM" class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-300 dark:border-slate-700 rounded-xl p-2.5 text-xs text-slate-900 dark:text-white">
+              </div>
+              <div>
+                <label class="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1">Nominal (Rp)</label>
+                <input type="number" id="tx-amount" required placeholder="750000" class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-300 dark:border-slate-700 rounded-xl p-2.5 text-xs text-slate-900 dark:text-white">
+              </div>
+              <div>
+                <label class="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1">Jenis Transaksi</label>
+                <select id="tx-type" class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-300 dark:border-slate-700 rounded-xl p-2.5 text-xs text-slate-900 dark:text-white">
+                  <option value="income">Pemasukan (+)</option>
+                  <option value="expense">Pengeluaran (-)</option>
+                </select>
+              </div>
+              <button type="submit" class="w-full bg-brand-600 hover:bg-brand-500 text-white py-2.5 rounded-xl font-semibold text-xs transition">Simpan Catatan</button>
+            </form>
+          </div>
+
+          <!-- Transaction Summary & History -->
+          <div class="md:col-span-2 space-y-6">
+            <div class="grid grid-cols-2 gap-4">
+              <div class="bg-white dark:bg-slate-800/80 border border-emerald-500/30 p-4 rounded-2xl shadow-sm">
+                <span class="text-xs text-slate-500 dark:text-slate-400 block">Total Pemasukan</span>
+                <span id="total-income" class="text-2xl font-bold text-emerald-600 dark:text-emerald-400 mt-1 block">Rp 0</span>
+              </div>
+              <div class="bg-white dark:bg-slate-800/80 border border-rose-500/30 p-4 rounded-2xl shadow-sm">
+                <span class="text-xs text-slate-500 dark:text-slate-400 block">Total Pengeluaran</span>
+                <span id="total-expense" class="text-2xl font-bold text-rose-600 dark:text-rose-400 mt-1 block">Rp 0</span>
+              </div>
+            </div>
+
+            <!-- List -->
+            <div class="bg-white dark:bg-slate-800/80 p-6 rounded-2xl border border-slate-200 dark:border-slate-700/60 max-h-72 overflow-y-auto shadow-sm">
+              <h5 class="font-bold text-xs text-slate-700 dark:text-slate-300 mb-3 uppercase tracking-wider">Riwayat Pencatatan Transaksi</h5>
+              <ul id="tx-list" class="divide-y divide-slate-200 dark:divide-slate-700/50 text-xs">
+                <li class="py-3 text-center text-slate-500">Belum ada transaksi tersimpan.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- MODAL CONSULTATION FORM -->
+  <div id="consultation-modal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-3xl p-6 md:p-8 max-w-md w-full relative shadow-2xl">
+      <button onclick="closeConsultationModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 dark:hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
+      <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-1">Form Konsultasi Proyek</h3>
+      <p class="text-xs text-slate-500 dark:text-slate-400 mb-6">Isi ringkasan kebutuhan Anda di bawah ini untuk terhubung secara otomatis ke WhatsApp.</p>
+
+      <form onsubmit="sendConsultationWA(event)" class="space-y-4">
+        <div>
+          <label class="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1">Nama Anda / Instansi</label>
+          <input type="text" id="client-name" required placeholder="Contoh: Pak Hendra / PT Karya Digital" class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-xl p-3 text-xs text-slate-900 dark:text-white">
+        </div>
+        <div>
+          <label class="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1">Detail Singkat Proyek</label>
+          <textarea id="client-msg" required rows="3" placeholder="Tuliskan spesifikasi website, fitur, atau jadwal pengerjaan yang diinginkan..." class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-xl p-3 text-xs text-slate-900 dark:text-white"></textarea>
+        </div>
+        <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-3 rounded-xl text-xs transition flex items-center justify-center shadow-lg">
+          <i class="fa-brands fa-whatsapp text-base mr-2"></i> Kirim Pesan ke WhatsApp
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="border-t border-slate-200 dark:border-slate-800 py-6 text-center text-xs text-slate-500">
+    <p>© 2026 Muhamad Syaifudin Nur Dzakiy. All rights reserved.</p>
+  </footer>
+
+  <!-- MAIN SCRIPT -->
+  <script>
+    let isUnlocked = false;
+    let transactions = JSON.parse(localStorage.getItem('syaifudin_txs') || '[]');
+
+    // --- Fungsi Toggle Dark / Light Mode ---
+    function toggleTheme() {
+      const htmlEl = document.documentElement;
+      const themeIcon = document.getElementById('theme-icon');
+
+      if (htmlEl.classList.contains('dark')) {
+        htmlEl.classList.remove('dark');
+        localStorage.setItem('theme', 'light');
+        if (themeIcon) {
+          themeIcon.className = 'fa-solid fa-moon text-base text-slate-600';
+        }
+      } else {
+        htmlEl.classList.add('dark');
+        localStorage.setItem('theme', 'dark');
+        if (themeIcon) {
+          themeIcon.className = 'fa-solid fa-sun text-base text-amber-400';
+        }
+      }
+    }
+
+    // Inisialisasi Mode Berdasarkan Pilihan Sebelumnya / Preferensi
+    (function initTheme() {
+      const savedTheme = localStorage.getItem('theme');
+      const htmlEl = document.documentElement;
+      const themeIcon = document.getElementById('theme-icon');
+
+      if (savedTheme === 'light') {
+        htmlEl.classList.remove('dark');
+        if (themeIcon) themeIcon.className = 'fa-solid fa-moon text-base text-slate-600';
+      } else {
+        htmlEl.classList.add('dark');
+        if (themeIcon) themeIcon.className = 'fa-solid fa-sun text-base text-amber-400';
+      }
+    })();
+
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.tab-btn').forEach(el => {
+        el.classList.remove('bg-brand-600', 'text-white');
+        el.classList.add('text-slate-600', 'dark:text-slate-400');
+      });
+
+      document.getElementById('tab-' + tabId).classList.add('active');
+      const activeNav = document.getElementById('nav-' + tabId);
+      if (activeNav) {
+        activeNav.classList.add('bg-brand-600', 'text-white');
+        activeNav.classList.remove('text-slate-600', 'dark:text-slate-400');
+      }
+    }
+
+    function unlockFinance() {
+      const pin = prompt("Masukkan PIN Pemilik (jangan coba dibuka yaaaa🤣):");
+      if (pin === "271322") {
+        isUnlocked = true;
+        document.getElementById('finance-locked-view').classList.add('hidden');
+        document.getElementById('finance-unlocked-view').classList.remove('hidden');
+        renderTransactions();
+      } else if (pin !== null) {
+        alert("PIN salah! Akses ditolak.");
+      }
+    }
+
+    function lockFinance() {
+      isUnlocked = false;
+      document.getElementById('finance-locked-view').classList.remove('hidden');
+      document.getElementById('finance-unlocked-view').classList.add('hidden');
+    }
+
+    function copyToClipboard(id, label) {
+      const text = document.getElementById(id).innerText.replace(/\s+/g, '');
+      navigator.clipboard.writeText(text);
+      alert('Nomor Rekening ' + label + ' berhasil disalin!');
+    }
+
+    function calculateEstimate() {
+      const base = parseFloat(document.getElementById('calc-type').value);
+      const scale = parseFloat(document.getElementById('calc-scale').value);
+      const speed = parseFloat(document.getElementById('calc-speed').value);
+      const total = base * scale * speed;
+      document.getElementById('calc-result').innerText = 'Rp ' + total.toLocaleString('id-ID');
+    }
+
+    function sendEstimateToWA() {
+      const total = document.getElementById('calc-result').innerText;
+      const text = `Halo Syaifudin, saya berminat berkonsultasi mengenai proyek dengan perkiraan estimasi ${total}.`;
+      // Mengarahkan langsung ke nomor 6281541401322
+      window.open(`https://wa.me/6281541401322?text=${encodeURIComponent(text)}`, '_blank');
+    }
+
+    function openConsultationModal() {
+      document.getElementById('consultation-modal').classList.remove('hidden');
+    }
+
+    function closeConsultationModal() {
+      document.getElementById('consultation-modal').classList.add('hidden');
+    }
+
+    function sendConsultationWA(e) {
+      e.preventDefault();
+      const name = document.getElementById('client-name').value;
+      const msg = document.getElementById('client-msg').value;
+      const text = `Halo Muhamad Syaifudin, nama saya ${name}.\n\nDetail Proyek:\n${msg}`;
+      // Mengarahkan langsung ke nomor 6281541401322
+      window.open(`https://wa.me/6281541401322?text=${encodeURIComponent(text)}`, '_blank');
+      closeConsultationModal();
+    }
+
+    function addTransaction(e) {
+      e.preventDefault();
+      const desc = document.getElementById('tx-desc').value;
+      const amount = parseFloat(document.getElementById('tx-amount').value);
+      const type = document.getElementById('tx-type').value;
+
+      transactions.push({ id: Date.now(), desc, amount, type });
+      localStorage.setItem('syaifudin_txs', JSON.stringify(transactions));
+      document.getElementById('tx-desc').value = '';
+      document.getElementById('tx-amount').value = '';
+      renderTransactions();
+    }
+
+    function renderTransactions() {
+      const list = document.getElementById('tx-list');
+      list.innerHTML = '';
+      let inc = 0, exp = 0;
+
+      if (transactions.length === 0) {
+        list.innerHTML = '<li class="py-3 text-center text-slate-500">Belum ada transaksi tersimpan.</li>';
+      }
+
+      transactions.forEach(t => {
+        if (t.type === 'income') inc += t.amount;
+        else exp += t.amount;
+
+        const li = document.createElement('li');
+        li.className = 'py-3 flex justify-between items-center';
+        li.innerHTML = `
+          <div>
+            <p class="font-medium text-slate-900 dark:text-white">${t.desc}</p>
+            <span class="text-[10px] ${t.type === 'income' ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-600 dark:text-rose-400'} font-semibold uppercase">${t.type}</span>
+          </div>
+          <span class="font-bold ${t.type === 'income' ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-600 dark:text-rose-400'}">
+            ${t.type === 'income' ? '+' : '-'} Rp ${t.amount.toLocaleString('id-ID')}
+          </span>
+        `;
+        list.appendChild(li);
+      });
+
+      document.getElementById('total-income').innerText = 'Rp ' + inc.toLocaleString('id-ID');
+      document.getElementById('total-expense').innerText = 'Rp ' + exp.toLocaleString('id-ID');
+    }
+
+    function filterPortfolio(category) {
+      const cards = document.querySelectorAll('.port-card');
+      cards.forEach(card => {
+        if (category === 'all' || card.classList.contains(category)) {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+  </script>
+</body>
+</html>
